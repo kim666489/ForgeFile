@@ -100,7 +100,7 @@ current variable scope as the evaluation namespace. Use this for real
 arithmetic/logic, since `let` does no computation.
 
 ```
-eval total = 1 + 2 * 3
+eval total = "1 + 2 * 3"
 ```
 
 > ⚠️ This runs raw Python `eval()` against your variable dictionary. Treat
@@ -110,14 +110,14 @@ eval total = 1 + 2 * 3
 Runs a shell command via `os.system`, after interpolating `$$variables`.
 
 ```
-shell echo Building $$mode version...
+shell ##echo Building $$mode version...##
 ```
 
 Prefix the command with `try` (or `_try`) to suppress/catch errors instead
 of letting them propagate:
 
 ```
-shell try rm -rf build
+shell ##try rm -rf build##
 ```
 
 ### `py <python code>`
@@ -125,7 +125,7 @@ Executes raw Python code with `exec()`, using the current variable scope as
 globals — so assignments inside the block become script variables.
 
 ```
-py print("running from embedded python")
+py ##print("running from embedded python")##
 ```
 
 > ⚠️ Same caveat as `eval` — this executes arbitrary Python code.
@@ -137,7 +137,7 @@ immediately.
 
 ```
 func build {
-    shell echo Compiling...
+    shell ##echo Compiling...##
     let status = done
 }
 ```
@@ -167,7 +167,7 @@ exists):
 
 ```
 let name = World
-shell echo Hello $$name
+shell ##echo Hello $$name##
 ```
 
 Interpolation is done by simple whitespace-token replacement (`calc_var_string`),
@@ -184,9 +184,9 @@ notlet mode = debug
 let message = Starting build in $$mode mode
 
 func build {
-    shell echo $$message
-    eval version = 1 + 1
-    shell echo Build version is $$version
+    shell ##echo $$message##
+    eval version = "1 + 1"
+    shell ##echo Build version is $$version##
 }
 
 call build
