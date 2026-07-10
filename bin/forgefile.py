@@ -183,8 +183,12 @@ if __name__ == "__main__":
         print(f"[CONFIG] ForgeFile in {forgefile_path}")
         print(f"[CONFIG] Running in {running_path}")
         os.system(f"ls {running_path}")
-    forgefile = ForgeFile(args)
-    forgefile.parser_run()
-    forgefile.set_variable_cmd(args)
-    forgefile.running_ir()
-    forgefile.running_cmd()
+    try:
+        forgefile = ForgeFile(args)
+        forgefile.parser_run()
+        forgefile.set_variable_cmd(args)
+        forgefile.running_ir()
+        forgefile.running_cmd()
+    except KeyboardInterrupt:
+        print("[ForgeFile] stoped.")
+        sys.exit(1)
