@@ -136,11 +136,18 @@ class ForgeFile:
     def running_cmd(self):
         if len(self.args) < 1:
             sys.exit()
-        if not self.args[0] in self.func:
-            print(f"[ERROR] Not {self.args[0]} in function.")
+        func_args = [a for a in self.args if len(a.split("=")) <= 1]
+
+        if len(func_args) < 1:
+            sys.exit()
+
+        func_name = func_args[0]
+
+        if not func_name in self.func:
+            print(f"[ERROR] Not {func_name} in function.")
             sys.exit(1)
 
-        _function = self.func[self.args[0]]
+        _function = self.func[func_name]
         ff = ForgeFile(self.args)
         ff.variable = self.variable
         ff.ir = _function["code"]
